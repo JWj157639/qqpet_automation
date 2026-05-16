@@ -40,12 +40,14 @@
 
 以下内容为本项目原创，按 [LICENSE](./LICENSE) 文件中的 **MIT 许可证** 授权：
 
-- 通信协议逆向分析报告（`新版QQ宠物1.2.4-逆向通信分析报告.{tex,pdf}`、`docs/`）
+- 通信协议逆向分析报告的研究底稿，以及后续可能公开的脱敏版本（当前完整 `新版QQ宠物1.2.4-逆向通信分析报告.{tex,pdf}` 未随公开仓库分发）
 - Python 管理工具与命令行（`src/qq_pet/`、`tests/`、`pyproject.toml`、`requirements.txt`、`config.yaml`）
 - macOS / Windows / Linux 移植所做的代码修改（`qq-pet-macos/main.js` 等由本项目作者编写或修改的部分）
 - 构建脚本、CI 工作流（`.github/workflows/`）与项目元数据
 - OpenClaw Skill 定义（`skills/qq-pet/`）
 - `README.md`、`LICENSE`、`NOTICE.md`、`CONTRIBUTING.md` 等项目文档
+
+完整逆向报告暂不公开，主要是因为其中包含较细粒度的第三方程序内部实现、接口路径、通信细节和本地暴露面；在完成进一步脱敏、事实复核与责任披露评估前，不宜直接作为公开材料分发。
 
 ---
 
