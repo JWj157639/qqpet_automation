@@ -10,7 +10,7 @@
 
 ## 1. 知识产权归属 (Intellectual Property Ownership)
 
-以下知识产权归 **腾讯控股有限公司**（Tencent Holdings Ltd.，下称"腾讯"）及其关联方所有，本项目对其不主张任何权利：
+从公开可核实资料看，以下知识产权整体上属于 **腾讯及其关联主体** 享有或运营的知识产权资产；不同权利类型的登记主体、著作权人和运营主体可能并不完全相同。本项目对其不主张任何权利：
 
 - "QQ"、"QQ宠物"、"QQ Pet" 等名称、商标与商业标识
 - QQ 宠物角色形象（包括但不限于宠物外观、服饰、配饰、表情）
@@ -18,7 +18,7 @@
 - 游戏内音频资源（背景音乐、音效）
 - 游戏世界观、剧情文本、道具命名、属性数值等设计要素
 
-> All names, trademarks, characters, artwork, sprites, animations, UI assets, audio, lore, item names, and game-design data of "QQ宠物 / QQ Pet" are the exclusive intellectual property of Tencent Holdings Ltd. and/or its affiliates. No claim of ownership over any of the foregoing is made by this project.
+> Based on publicly verifiable materials, the names, trademarks, characters, artwork, sprites, animations, UI assets, audio, lore, item names, software-related assets, and game-design data of "QQ宠物 / QQ Pet" are intellectual property assets owned or operated by Tencent and/or its affiliated entities. The exact registered owner, copyright holder, or operating entity may differ depending on the right type. No claim of ownership over any of the foregoing is made by this project.
 
 ---
 
@@ -71,6 +71,8 @@ Electron 完整许可文本随构建产物分发，参见 `qq_pet_app/LICENSE.el
 ### 5.1 仅限非商业用途
 
 本项目及其衍生构建产物 **仅供个人学习、研究、怀旧与技术交流使用**，**严禁** 将其用于任何商业目的（包括但不限于销售、广告、付费分发、游戏代练、外挂代销等）。
+
+未经相关权利人授权，将 `QQ宠物` 相关名称、标识、角色形象、美术资源、程序或其他受保护内容用于收费分发、商业运营、广告导流或其他营利性用途，通常具有较高的商标侵权、著作权侵权及不正当竞争风险。
 
 > For personal study, research, reminiscence and technical exchange only. **Commercial use is strictly prohibited.**
 
