@@ -387,16 +387,16 @@ span::-webkit-scrollbar-track {
 
 /* 鼠标样式 */
 .focusPress_online {
-  cursor: url("../assets/img_res/hand/focus/press.cur"), default !important;
+  cursor: url("../../assets/img_res/hand/focus/press.cur"), default !important;
 }
 .focusNormal_online {
-  cursor: url("../assets/img_res/hand/focus/normal.cur"), default !important;
+  cursor: url("../../assets/img_res/hand/focus/normal.cur"), default !important;
 }
 .focusPress {
-  cursor: url("../assets/img_res/hand/focus/normal.cur"), default;
+  cursor: url("../../assets/img_res/hand/focus/normal.cur"), default;
 }
 .focusPress:active {
-  cursor: url("../assets/img_res/hand/focus/press.cur"), default !important;
+  cursor: url("../../assets/img_res/hand/focus/press.cur"), default !important;
 }
 
 /* 背景样式 上3个中3个下3个 拼接  图片和尺寸由内联书写 */

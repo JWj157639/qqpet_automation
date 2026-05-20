@@ -129,14 +129,16 @@ div {
 }
 /* 动态 */
 .bk_body .center.active > .c_left {
-  width: 20px;
+  width: 12px;
   height: 19px;
-  background-image: url("../assets/Menu/ditu04_2.bmp");
+  background-image: url("../assets/Menu/ditu05_2.bmp");
+  background-size: 100% 100%;
 }
 .bk_body .center.active:active > .c_left {
-  width: 20px;
+  width: 12px;
   height: 19px;
-  background-image: url("../assets/Menu/ditu04_22.bmp");
+  background-image: url("../assets/Menu/ditu05_2.bmp");
+  background-size: 100% 100%;
 }
 .bk_body .center.active > .c_center {
   height: 19px;

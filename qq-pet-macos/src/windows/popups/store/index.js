@@ -35,6 +35,27 @@ const app = {
   },
   mounted(){
     this.switchTab(this.activeTab);
+    window.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.shiftKey) {
+        if (event.key === "3" || event.code === "Digit3" || event.code === "Numpad3") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+3" });
+        } else if (event.key === "4" || event.code === "Digit4" || event.code === "Numpad4") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+4" });
+        } else if (event.key === "1" || event.code === "Digit1" || event.code === "Numpad1") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+1" });
+        } else if (event.key === "2" || event.code === "Digit2" || event.code === "Numpad2") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+2" });
+        } else if (event.key === "/" || event.code === "NumpadDivide") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+numdiv" });
+        } else if (event.key === "*" || event.code === "NumpadMultiply") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+nummult" });
+        } else if (event.key === "-" || event.code === "NumpadSubtract") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+numsub" });
+        } else if (event.key === "+" || event.code === "NumpadAdd") {
+          sendBus({ event: "shortcut", key: "Ctrl+Shift+numadd" });
+        }
+      }
+    });
     window.electronAPI.store_m_bus((e,d)=>{
       if(d.type === "load"){
         this.petInfo = d.data || this.petInfo;
