@@ -1,8 +1,5 @@
 """QQ 宠物游戏数据常量（从 v1.2.4 源码逆向提取）"""
 
-from __future__ import annotations
-
-
 # 属性临界阈值
 HUNGER_THRESHOLD = 720    # 低于此值进入饥饿状态
 CLEAN_THRESHOLD = 1080    # 低于此值进入脏污状态

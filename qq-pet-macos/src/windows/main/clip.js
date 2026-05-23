@@ -5,15 +5,18 @@ module.exports = function (options) {
   const watchDelay = options.watchDelay || 1000;
   const shakeTime = options.shakeTime || 0;
 
-  let lastText = clipboard.readText();
-  let lastImage = clipboard.readImage();
-  let cachedThumb = null;
-
-  if (!lastImage.isEmpty()) {
+  const readThumbnail = (image) => {
     try {
-      cachedThumb = lastImage.resize({ width: 16, height: 16, quality: "good" }).toPNG();
-    } catch (_) {}
-  }
+      return image.resize({ width: 16, height: 16, quality: "good" }).toPNG();
+    } catch (err) {
+      console.warn("Failed to build clipboard thumbnail:", err);
+      return null;
+    }
+  };
+
+  let lastText = "";
+  let lastImage = null;
+  let cachedThumb = null;
 
   let delayTimeout = null;
   let wasStopped = true; // Initialize to true so the first active tick resets baselines without triggering
@@ -26,15 +29,10 @@ module.exports = function (options) {
     }
 
     if (wasStopped) {
-      // Transitioned from stopped to active: Reset baselines without triggering change events
+      // Resuming intentionally resets baselines, so changes while stopped are not replayed.
       lastText = clipboard.readText();
       lastImage = clipboard.readImage();
-      cachedThumb = null;
-      if (!lastImage.isEmpty()) {
-        try {
-          cachedThumb = lastImage.resize({ width: 16, height: 16, quality: "good" }).toPNG();
-        } catch (_) {}
-      }
+      cachedThumb = lastImage.isEmpty() ? null : readThumbnail(lastImage);
       wasStopped = false;
       return;
     }
@@ -72,12 +70,10 @@ module.exports = function (options) {
           if (currentSize.width !== cachedSize.width || currentSize.height !== cachedSize.height) {
             changed = true;
           } else {
-            try {
-              currentThumb = currentImage.resize({ width: 16, height: 16, quality: "good" }).toPNG();
-              if (!cachedThumb || !cachedThumb.equals(currentThumb)) {
-                changed = true;
-              }
-            } catch (_) {
+            // Performance tradeoff: avoid full image serialization on every tick.
+            // Same-sized images that collide after 16x16 downscaling may be missed.
+            currentThumb = readThumbnail(currentImage);
+            if (!cachedThumb || !currentThumb || !cachedThumb.equals(currentThumb)) {
               changed = true;
             }
           }
@@ -86,9 +82,7 @@ module.exports = function (options) {
         if (changed) {
           lastImage = currentImage;
           if (!currentThumb) {
-            try {
-              currentThumb = currentImage.resize({ width: 16, height: 16, quality: "good" }).toPNG();
-            } catch (_) {}
+            currentThumb = readThumbnail(currentImage);
           }
           cachedThumb = currentThumb;
 
