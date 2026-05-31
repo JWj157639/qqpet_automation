@@ -2,7 +2,7 @@ const { clipboard } = require("electron");
 
 module.exports = function (options) {
   options = options || {};
-  const watchDelay = options.watchDelay || 1000;
+  const watchDelay = options.watchDelay || 1000;  // 改为 1000ms，原 200ms 太频繁
   const shakeTime = options.shakeTime || 0;
 
   const readThumbnail = (image) => {
@@ -19,7 +19,7 @@ module.exports = function (options) {
   let cachedThumb = null;
 
   let delayTimeout = null;
-  let wasStopped = true; // Initialize to true so the first active tick resets baselines without triggering
+  let wasStopped = true;
 
   const intervalId = setInterval(() => {
     const stopped = options.stop && options.stop("clip");
@@ -29,7 +29,6 @@ module.exports = function (options) {
     }
 
     if (wasStopped) {
-      // Resuming intentionally resets baselines, so changes while stopped are not replayed.
       lastText = clipboard.readText();
       lastImage = clipboard.readImage();
       cachedThumb = lastImage.isEmpty() ? null : readThumbnail(lastImage);
@@ -40,7 +39,6 @@ module.exports = function (options) {
     // 1. Check text change
     if (options.onTextChange) {
       const currentText = clipboard.readText();
-      // Match the original logic: trigger only if currentText is not empty and has changed
       if (currentText && lastText !== currentText) {
         lastText = currentText;
         if (delayTimeout) clearTimeout(delayTimeout);
@@ -52,7 +50,7 @@ module.exports = function (options) {
       }
     }
 
-    // 2. Check image change
+    // 2. Check image change - 使用缩略图比较，避免 toDataURL 阻塞
     if (options.onImageChange) {
       const currentImage = clipboard.readImage();
       const currentEmpty = currentImage.isEmpty();
@@ -70,8 +68,7 @@ module.exports = function (options) {
           if (currentSize.width !== cachedSize.width || currentSize.height !== cachedSize.height) {
             changed = true;
           } else {
-            // Performance tradeoff: avoid full image serialization on every tick.
-            // Same-sized images that collide after 16x16 downscaling may be missed.
+            // 只比较缩略图，避免 toDataURL() 阻塞主线程
             currentThumb = readThumbnail(currentImage);
             if (!cachedThumb || !currentThumb || !cachedThumb.equals(currentThumb)) {
               changed = true;
@@ -81,14 +78,13 @@ module.exports = function (options) {
 
         if (changed) {
           lastImage = currentImage;
-          if (!currentThumb) {
-            currentThumb = readThumbnail(currentImage);
-          }
-          cachedThumb = currentThumb;
+          cachedThumb = currentThumb || readThumbnail(currentImage);
 
           if (delayTimeout) clearTimeout(delayTimeout);
           delayTimeout = setTimeout(() => {
-            options.onImageChange(currentImage);
+            // 只传递缩略图 data URL，避免传递大图阻塞
+            const thumbData = cachedThumb ? `data:image/png;base64,${cachedThumb.toString("base64")}` : null;
+            options.onImageChange(thumbData);
             delayTimeout = null;
           }, shakeTime);
         }
@@ -100,6 +96,6 @@ module.exports = function (options) {
   }, watchDelay);
 
   return {
-    stop: () => clearInterval(intervalId),
+    stop: () => clearInterval(intervalId)
   };
 };
