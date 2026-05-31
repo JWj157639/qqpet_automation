@@ -25,12 +25,8 @@ jobs:
       - name: Download resources
         run: |
           cd qq-pet-macos
-          gh release download resources-v1 \
-            --pattern 'qq-pet-resources.tar.gz' \
-            --dir /tmp
+          curl -L https://github.com/xuemian168/qqpet_automation/releases/download/resources-v1/qq-pet-resources.tar.gz -o /tmp/qq-pet-resources.tar.gz
           tar xzf /tmp/qq-pet-resources.tar.gz
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: |
@@ -79,12 +75,8 @@ jobs:
       - name: Download resources
         run: |
           cd qq-pet-macos
-          gh release download resources-v1 `
-            --pattern 'qq-pet-resources.tar.gz' `
-            --dir $env:TEMP
+          curl -L https://github.com/xuemian168/qqpet_automation/releases/download/resources-v1/qq-pet-resources.tar.gz -o $env:TEMP\qq-pet-resources.tar.gz
           tar xzf "$env:TEMP\qq-pet-resources.tar.gz"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: |
@@ -148,12 +140,8 @@ jobs:
       - name: Download resources
         run: |
           cd qq-pet-macos
-          gh release download resources-v1 \
-            --pattern 'qq-pet-resources.tar.gz' \
-            --dir /tmp
+          curl -L https://github.com/xuemian168/qqpet_automation/releases/download/resources-v1/qq-pet-resources.tar.gz -o /tmp/qq-pet-resources.tar.gz
           tar xzf /tmp/qq-pet-resources.tar.gz
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: |
